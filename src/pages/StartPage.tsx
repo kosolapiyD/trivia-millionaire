@@ -9,8 +9,6 @@ import './all-pages.scss';
 
 const StartPage = () => {
 
-
-
     const [categories, setCategories] = useState<SelectFieldType[]>([]);
     const [error, setError] = useState({ isErr: false, errMsg: '' });
     const [isLoading, setIsLoading] = useState(true);
