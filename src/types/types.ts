@@ -5,13 +5,6 @@ export type SelectFieldType = {
   name: string;
 };
 
-export type SelectFieldProps = {
-  data: SelectFieldType[];
-  label: string;
-  onChange: (e: SelectChangeEvent) => void;
-  value: string;
-};
-
 export type TriviaCategoryResponseType = {
   trivia_categories: Array<CategoryList>;
 };

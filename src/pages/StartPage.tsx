@@ -80,4 +80,4 @@ const StartPage = () => {
     )
 }
 
-export default StartPage
+export default StartPage;

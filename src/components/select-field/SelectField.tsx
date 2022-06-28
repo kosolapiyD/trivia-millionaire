@@ -1,9 +1,16 @@
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import { SelectFieldProps, SelectFieldType } from '../../types/types';
+import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import { SelectFieldType } from '../../types/types';
 
 import './select-field.scss';
 
-const SelectField = ({ data, label, onChange, value }: SelectFieldProps) => {
+type Props = {
+    data: SelectFieldType[];
+    label: string;
+    onChange: (e: SelectChangeEvent) => void;
+    value: string;
+};
+
+const SelectField = ({ data, label, onChange, value }: Props) => {
 
     return (
         <div className='select-field-box'>

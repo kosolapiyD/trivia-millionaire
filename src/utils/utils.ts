@@ -1,10 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 
 const axiosInstance = axios.create({
-  // https://opentdb.com/api.php?amount=10&category=25&difficulty=easy
-  // https://opentdb.com/api.php?amount=10&category=25&difficulty=easy&type=multiple
-  // https://opentdb.com/api.php?amount=10
-  // api_category.php
   baseURL: "https://opentdb.com",
 });
 
