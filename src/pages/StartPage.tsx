@@ -1,4 +1,4 @@
-import { Box, Button, SelectChangeEvent, Typography } from '@mui/material';
+import { Button, SelectChangeEvent, Typography } from '@mui/material';
 import { FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SelectField from '../components/select-field/SelectField';
@@ -12,9 +12,7 @@ const StartPage = () => {
     const [categories, setCategories] = useState<SelectFieldType[]>([]);
     const [error, setError] = useState({ isErr: false, errMsg: '' });
     const [isLoading, setIsLoading] = useState(true);
-
     // console.log("StartPage", categories);
-
     const [chosenCategory, setChosenCategory] = useState('');
     const [chosenDifficulty, setChosenDifficulty] = useState('');
 

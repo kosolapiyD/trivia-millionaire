@@ -55,8 +55,6 @@ const GameProcessPage = () => {
         }
     }, [triviaData, questionIndex])
 
-
-
     const handleOnAnswerClick = (target: EventTarget, answer: string) => {
         const correctAnswer = triviaData[questionIndex].correct_answer;
         const clickedElem = target as HTMLElement;
