@@ -115,6 +115,30 @@
   background: mediumblue;
 }
 
+.answer.late-correct {
+  animation: late-correct 2s ease forwards;
+}
+
+@keyframes late-correct {
+  0%,
+  22%
+
+  /* 42%  */ {
+    background: mediumblue;
+  }
+
+  20%,
+  /* 40%, */
+  60% {
+    background: linear-gradient(#0e0124, #22074d);
+  }
+
+  62%,
+  100% {
+    background: #404040;
+  }
+}
+
 .answer.correct {
   animation: correct 2s ease forwards;
 }

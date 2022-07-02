@@ -26,14 +26,17 @@ const GameProcessPage = () => {
     const [questionIndex, setQuestionIndex] = useState(0);
     const [allAnswers, setAllAnswers] = useState<string[]>([]);
 
-    console.log('triviaData :>> ', triviaData);
+    const timerDuration: number = 20;
+
+    // console.log('triviaData :>> ', triviaData);
 
     useEffect(() => {
         getTriviaData();
+        // setTimerDuration(2)
     }, [null]);
 
     const getTriviaData = async () => {
-        console.log("getTriviaData")
+        // console.log("getTriviaData")
         const triviaDataResponse: TriviaDataResponseType = await services
             .fetchTriviaData(`&category=${category}&difficulty=${difficulty}&type=multiple`)
             .catch(error => setError({ isErr: true, errCode: error.code, errMsg: error.message }))
@@ -52,21 +55,30 @@ const GameProcessPage = () => {
                 triviaItem.correct_answer
             );
             setAllAnswers(answers);
+            // if no answer chosen after 20 seconds
+            const timer = setTimeout(() => {
+                console.log("correctAnswer", triviaItem.correct_answer);
+                let answerElements: HTMLCollectionOf<Element> = document.getElementsByClassName('answer');
+                for (let i = 0; i < answerElements.length; i++) {
+                    if (answerElements[i].textContent === triviaItem.correct_answer) {
+                        answerElements[i].classList.add('late-correct')
+                    }
+                }
+            }, timerDuration * 1000);
+            return () => clearTimeout(timer);
         }
     }, [triviaData, questionIndex])
 
     const handleOnAnswerClick = (target: EventTarget, answer: string) => {
         const correctAnswer = triviaData[questionIndex].correct_answer;
         const clickedElem = target as HTMLElement;
-        console.log('target', target)
         if (answer === correctAnswer) {
-            console.log('correctAnswer :>> ', correctAnswer);
             clickedElem.classList.add('correct');
         } else {
             clickedElem.classList.add('wrong');
         }
 
-        setTimeout(() => {
+        const clickTimer = setTimeout(() => {
             if (answer === correctAnswer) {
                 if (questionIndex + 1 < triviaData.length) {
                     clickedElem.classList.remove('correct');
@@ -80,7 +92,16 @@ const GameProcessPage = () => {
                 navigate('/final-score', { replace: true });
             }
         }, 1700);
+        return () => clearTimeout(clickTimer);
     }
+
+
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         const correctAnswer = triviaData;
+    //         console.log("correctAnswer", correctAnswer)
+    //     }, timerDuration * 1000)
+    // }, [triviaData, timerDuration]);
 
     return (
         <>
@@ -94,7 +115,7 @@ const GameProcessPage = () => {
                                 <>
                                     <div className='trivia-main-wrapper'>
                                         <div className='top'>
-                                            <Timer />
+                                            <Timer timerDuration={timerDuration} />
                                         </div>
                                         <div className="bottom">
                                             <div className='trivia'>

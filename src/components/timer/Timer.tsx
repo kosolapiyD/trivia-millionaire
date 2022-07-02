@@ -1,14 +1,17 @@
-import { useEffect, useState } from "react";
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 
-const Timer = () => {
+type Props = {
+    timerDuration: number
+}
+
+const Timer = ({ timerDuration }: Props) => {
 
     const UrgeWithPleasureComponent = () => (
         <CountdownCircleTimer
             isPlaying
-            duration={10}
+            duration={timerDuration}
             colors={['#00b300', '#F7B801', '#A30000', '#A30000']}
-            colorsTime={[8, 5, 2, 0]}
+            colorsTime={[12, 7, 3, 0]}
             size={100}
             strokeWidth={8}
             trailColor={"rgba(255, 255, 255, 0.1)"}

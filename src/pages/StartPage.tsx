@@ -1,6 +1,8 @@
 import { Button, SelectChangeEvent, Typography } from '@mui/material';
 import { FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import ErrorElem from '../components/error/ErrorElem';
+import ProgressLoader from '../components/progress-loader/ProgressLoader';
 import SelectField from '../components/select-field/SelectField';
 import { SelectFieldType, TriviaCategoryResponseType } from '../types/types';
 import services from '../utils/utils';
@@ -10,7 +12,7 @@ import './all-pages.scss';
 const StartPage = () => {
 
     const [categories, setCategories] = useState<SelectFieldType[]>([]);
-    const [error, setError] = useState({ isErr: false, errMsg: '' });
+    const [error, setError] = useState({ isErr: false, errCode: null, errMsg: '' });
     const [isLoading, setIsLoading] = useState(true);
     // console.log("StartPage", categories);
     const [chosenCategory, setChosenCategory] = useState('');
@@ -35,7 +37,7 @@ const StartPage = () => {
         // console.log("getCategories");
         const categoriesResponse: TriviaCategoryResponseType = await services
             .fetchCategories()
-            .catch(error => setError({ isErr: true, errMsg: error.message }))
+            .catch(error => setError({ isErr: true, errCode: error.code, errMsg: error.message }))
             .finally(() => setIsLoading(false));
         setCategories(categoriesResponse.trivia_categories);
     }
@@ -60,20 +62,29 @@ const StartPage = () => {
 
     return (
         <div className='page-container'>
-            <Typography variant="h3" fontWeight="bold">Trivia Millionaire App</Typography>
-            <form onSubmit={handleSubmit}>
-                {categories &&
-                    <>
-                        <SelectField onChange={handleChange} value={chosenCategory} data={categories} label="Category" />
-                        <SelectField onChange={handleChange} value={chosenDifficulty} data={difficultyOptions} label="Difficulty" />
-                        <div className='btn-box'>
-                            <Button fullWidth variant="contained" type="submit">
-                                Get Started
-                            </Button>
-                        </div>
-                    </>
-                }
-            </form>
+            <Typography variant="h3" fontWeight="bold" color={'#1976d2'}>Trivia Millionaire App</Typography>
+            {isLoading ? <ProgressLoader /> :
+                <>
+                    {
+                        error.isErr ?
+                            <ErrorElem errCode={error.errCode} errMsg={error.errMsg} />
+                            :
+                            <form onSubmit={handleSubmit}>
+                                {categories &&
+                                    <>
+                                        <SelectField onChange={handleChange} value={chosenCategory} data={categories} label="Category" />
+                                        <SelectField onChange={handleChange} value={chosenDifficulty} data={difficultyOptions} label="Difficulty" />
+                                        <div className='btn-box'>
+                                            <Button fullWidth variant="contained" type="submit">
+                                                Get Started
+                                            </Button>
+                                        </div>
+                                    </>
+                                }
+                            </form>
+                    }
+                </>
+            }
         </div>
     )
 }
