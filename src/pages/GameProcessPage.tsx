@@ -28,20 +28,20 @@ const GameProcessPage = () => {
 
     const timerDuration: number = 20;
 
-    // console.log('triviaData :>> ', triviaData);
-
     useEffect(() => {
         getTriviaData();
-        // setTimerDuration(2)
     }, [null]);
 
     const getTriviaData = async () => {
-        // console.log("getTriviaData")
         const triviaDataResponse: TriviaDataResponseType = await services
             .fetchTriviaData(`&category=${category}&difficulty=${difficulty}&type=multiple`)
             .catch(error => setError({ isErr: true, errCode: error.code, errMsg: error.message }))
             .finally(() => setIsLoading(false));
         setTriviaData(triviaDataResponse.results);
+    }
+
+    const navigateToFinalScreen = () => {
+        navigate('/final-score', { replace: true, state: questionIndex });
     }
 
     useEffect(() => {
@@ -57,11 +57,14 @@ const GameProcessPage = () => {
             setAllAnswers(answers);
             // if no answer chosen after 20 seconds
             const timer = setTimeout(() => {
-                console.log("correctAnswer", triviaItem.correct_answer);
                 let answerElements: HTMLCollectionOf<Element> = document.getElementsByClassName('answer');
                 for (let i = 0; i < answerElements.length; i++) {
                     if (answerElements[i].textContent === triviaItem.correct_answer) {
-                        answerElements[i].classList.add('late-correct')
+                        answerElements[i].classList.add('late-correct');
+                        const finalScreenTimeout = setTimeout(() => {
+                            navigateToFinalScreen();
+                        }, 2000);
+                        return () => clearTimeout(finalScreenTimeout);
                     }
                 }
             }, timerDuration * 1000);
@@ -84,24 +87,14 @@ const GameProcessPage = () => {
                     clickedElem.classList.remove('correct');
                     setQuestionIndex(questionIndex + 1);
                 } else {
-                    // navigate to final screen after last question
-                    navigate('/final-score', { replace: true });
+                    navigateToFinalScreen();
                 }
             } else {
-                // navigate to final screen if wrong question
-                navigate('/final-score', { replace: true });
+                navigateToFinalScreen();
             }
         }, 1700);
         return () => clearTimeout(clickTimer);
     }
-
-
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         const correctAnswer = triviaData;
-    //         console.log("correctAnswer", correctAnswer)
-    //     }, timerDuration * 1000)
-    // }, [triviaData, timerDuration]);
 
     return (
         <>

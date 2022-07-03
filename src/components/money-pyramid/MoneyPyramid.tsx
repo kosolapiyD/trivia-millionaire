@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { moneyPyramid } from '../money-pyramid/moneyPyramidArr';
 
 type Props = {
     questionIndex: number
@@ -6,15 +7,15 @@ type Props = {
 
 const MoneyPyramid = ({ questionIndex }: Props) => {
 
-    const moneyPyramid = useMemo(() =>
-        [
-            { id: 1, amount: "$ 64.000" },
-            { id: 2, amount: "$ 125.000" },
-            { id: 3, amount: "$ 250.000" },
-            { id: 4, amount: "$ 500.000" },
-            { id: 5, amount: "$ 1.000.000" }
-        ].reverse(),
-        []);
+    // const moneyPyramid = useMemo(() =>
+    //     [
+    //         { id: 1, amount: "$ 64.000" },
+    //         { id: 2, amount: "$ 125.000" },
+    //         { id: 3, amount: "$ 250.000" },
+    //         { id: 4, amount: "$ 500.000" },
+    //         { id: 5, amount: "$ 1.000.000" }
+    //     ].reverse(),
+    //     []);
 
     return (
         <div className='pyramid'>

@@ -1,3 +1,4 @@
+import './error.scss';
 
 type Props = {
     errCode: any,
