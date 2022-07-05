@@ -18,4 +18,9 @@ code {
   justify-content: center;
   color: white;
   background-color: #e6e6e6;
+
+  @media screen and (max-width: 800px) {
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+  }
 }

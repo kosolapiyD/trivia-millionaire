@@ -29,7 +29,7 @@ const GameProcessPage = () => {
     const [questionIndex, setQuestionIndex] = useState(0);
     const [allAnswers, setAllAnswers] = useState<string[]>([]);
 
-    const timerDuration: number = 20;
+    const timerDuration: number = 200;
 
     useEffect(() => {
         getTriviaData();
@@ -98,6 +98,8 @@ const GameProcessPage = () => {
         }, 1700);
         return () => clearTimeout(clickTimer);
     }
+
+    console.log('triviaData', triviaData);
 
     return (
         <>

@@ -3,4 +3,11 @@
   bottom: 10px;
   left: 80px;
   font-size: 33px;
+
+  @media screen and (max-width: 800px) {
+    z-index: 9;
+    top: 10px;
+    left: 10px;
+    font-weight: 700;
+  }
 }

@@ -21,13 +21,13 @@
       justify-content: space-around;
 
       .question {
-        width: 80%;
+        width: 81%;
         background: linear-gradient(#100241, black);
         text-align: center;
         padding: 20px;
         border-radius: 10px;
         border: 2px solid white;
-        font-size: 20px;
+        font-size: 21px;
       }
 
       .answers {
@@ -122,6 +122,39 @@
             100% {
               background: crimson;
             }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .trivia-main-wrapper {
+    width: 100%;
+    min-height: 100vh;
+
+    .top {
+      height: 0;
+    }
+
+    .bottom {
+      height: 100%;
+
+      .trivia {
+        justify-content: flex-end;
+
+        .question {
+          padding: 15px;
+          margin-bottom: 35px;
+        }
+
+        .answers {
+          .answer {
+            width: 86%;
+            padding: 6px;
+            margin-bottom: 15px;
+            border-radius: 10px;
           }
         }
       }
