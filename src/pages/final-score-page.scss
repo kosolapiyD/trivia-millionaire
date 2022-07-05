@@ -1,0 +1,28 @@
+.final-page-wrapper {
+  text-align: center;
+
+  span {
+    color: #1976d2;
+    font-weight: 700;
+  }
+
+  .final-page-title-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    .title-a {
+      font-size: 2rem;
+    }
+    .title-b {
+      font-size: 3rem;
+    }
+  }
+
+  .title-c {
+    font-size: 2rem;
+  }
+}
+
+.end-btn-box {
+  margin: 30px 20px;
+}

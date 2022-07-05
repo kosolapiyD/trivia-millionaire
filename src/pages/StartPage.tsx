@@ -7,7 +7,7 @@ import SelectField from '../components/select-field/SelectField';
 import { SelectFieldType, TriviaCategoryResponseType } from '../types/types';
 import services from '../utils/utils';
 
-import './all-pages.scss';
+import './start-page.scss';
 
 const StartPage = () => {
 
@@ -61,8 +61,11 @@ const StartPage = () => {
     };
 
     return (
-        <div className='page-container'>
-            <Typography variant="h3" fontWeight="bold" color={'#1976d2'}>Trivia Millionaire App</Typography>
+        <div>
+            <div className='title-wrapper'>
+                <span className='start-page-title'>Trivia Millionaire App</span>
+            </div>
+
             {isLoading ? <ProgressLoader /> :
                 <>
                     {
@@ -74,7 +77,7 @@ const StartPage = () => {
                                     <>
                                         <SelectField onChange={handleChange} value={chosenCategory} data={categories} label="Category" />
                                         <SelectField onChange={handleChange} value={chosenDifficulty} data={difficultyOptions} label="Difficulty" />
-                                        <div className='btn-box'>
+                                        <div className='start-btn-box'>
                                             <Button fullWidth variant="contained" type="submit">
                                                 Get Started
                                             </Button>

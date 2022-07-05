@@ -1,0 +1,32 @@
+.pyramid {
+  width: 25%;
+  background-color: #020230;
+  display: flex;
+  align-items: center;
+
+  .moneyList {
+    padding: 20px;
+    list-style: none;
+    width: 100%;
+
+    .moneyListItem {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-radius: 5px;
+      &.active {
+        background-color: teal;
+      }
+    }
+    .moneyListItemNumber {
+      width: 30%;
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    .moneyListItemAmount {
+      font-size: 22px;
+      font-weight: 600;
+    }
+  }
+}

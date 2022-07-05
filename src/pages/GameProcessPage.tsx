@@ -8,6 +8,9 @@ import Timer from '../components/timer/Timer';
 import { LocationType, TriviaDataResponseType, TriviaDataType } from '../types/types';
 import services from '../utils/utils';
 
+import './game-process-page.scss';
+// import './all-pages.scss';
+
 const getRandomInt = (max: number) => {
     return Math.floor(Math.random() * Math.floor(max));
 };

@@ -1,5 +1,7 @@
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 
+import './timer.scss';
+
 type Props = {
     timerDuration: number
 }

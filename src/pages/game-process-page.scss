@@ -1,0 +1,130 @@
+.trivia-main-wrapper {
+  width: 75%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), #020230),
+    url("https://i.ytimg.com/vi/yQbJRGs0fy8/maxresdefault.jpg") center;
+  display: flex;
+  flex-direction: column;
+
+  .top {
+    height: 50%;
+    position: relative;
+  }
+
+  .bottom {
+    height: 50%;
+
+    .trivia {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+
+      .question {
+        width: 80%;
+        background: linear-gradient(#100241, black);
+        text-align: center;
+        padding: 20px;
+        border-radius: 10px;
+        border: 2px solid white;
+        font-size: 20px;
+      }
+
+      .answers {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+
+        .answer {
+          width: 40%;
+          padding: 10px;
+          margin: 0 10px 20px 10px;
+          text-align: center;
+          background: linear-gradient(#0e0124, #22074d);
+          border: 1px solid white;
+          border-radius: 15px;
+          font-weight: 300;
+          font-size: 20px;
+          cursor: pointer;
+
+          &.active {
+            background: mediumblue;
+          }
+
+          &.late-correct {
+            animation: late-correct 2s ease forwards;
+          }
+
+          @keyframes late-correct {
+            0%,
+            22%
+          
+            /* 42%  */ {
+              background: mediumblue;
+            }
+
+            20%,
+            /* 40%, */
+            60% {
+              background: linear-gradient(#0e0124, #22074d);
+            }
+
+            62%,
+            100% {
+              background: #404040;
+            }
+          }
+
+          &.correct {
+            animation: correct 2s ease forwards;
+          }
+
+          @keyframes correct {
+            0%,
+            22%
+          
+            /* 42%  */ {
+              background: mediumblue;
+            }
+
+            20%,
+            /* 40%, */
+            60% {
+              background: linear-gradient(#0e0124, #22074d);
+            }
+
+            62%,
+            100% {
+              background: green;
+            }
+          }
+
+          &.wrong {
+            animation: wrong 2s ease forwards;
+          }
+
+          @keyframes wrong {
+            0%,
+            22%
+          
+            /* 42%  */ {
+              background: mediumblue;
+            }
+
+            20%,
+            /* 40%, */
+            60% {
+              background: linear-gradient(#0e0124, #22074d);
+            }
+
+            62%,
+            100% {
+              background: crimson;
+            }
+          }
+        }
+      }
+    }
+  }
+}
