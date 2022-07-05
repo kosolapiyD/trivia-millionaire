@@ -9,14 +9,12 @@ import { LocationType, TriviaDataResponseType, TriviaDataType } from '../types/t
 import services from '../utils/utils';
 
 import './game-process-page.scss';
-// import './all-pages.scss';
 
 const getRandomInt = (max: number) => {
     return Math.floor(Math.random() * Math.floor(max));
 };
 
 const GameProcessPage = () => {
-    // console.log('GameProcessPage');
     const { state } = useLocation() as LocationType;
     const navigate = useNavigate();
     const category = state.category;
@@ -29,7 +27,7 @@ const GameProcessPage = () => {
     const [questionIndex, setQuestionIndex] = useState(0);
     const [allAnswers, setAllAnswers] = useState<string[]>([]);
 
-    const timerDuration: number = 200;
+    const timerDuration: number = 20;
 
     useEffect(() => {
         getTriviaData();
@@ -43,8 +41,21 @@ const GameProcessPage = () => {
         setTriviaData(triviaDataResponse.results);
     }
 
-    const navigateToFinalScreen = () => {
-        navigate('/final-score', { replace: true, state: questionIndex });
+    const navigateToFinalScreen = (isCorrect: boolean) => {
+        navigate('/final-score', { replace: true, state: isCorrect ? questionIndex + 1 : questionIndex });
+    }
+
+    const findAndShowTheCorrectAnswer = () => {
+        let answerElements: HTMLCollectionOf<Element> = document.getElementsByClassName('answer');
+        for (let i = 0; i < answerElements.length; i++) {
+            if (answerElements[i].textContent === triviaData[questionIndex].correct_answer) {
+                answerElements[i].classList.add('late-correct');
+                const finalScreenTimeout = setTimeout(() => {
+                    navigateToFinalScreen(false);
+                }, 2000);
+                return () => clearTimeout(finalScreenTimeout);
+            }
+        }
     }
 
     useEffect(() => {
@@ -60,20 +71,11 @@ const GameProcessPage = () => {
             setAllAnswers(answers);
             // if no answer chosen after 20 seconds
             const timer = setTimeout(() => {
-                let answerElements: HTMLCollectionOf<Element> = document.getElementsByClassName('answer');
-                for (let i = 0; i < answerElements.length; i++) {
-                    if (answerElements[i].textContent === triviaItem.correct_answer) {
-                        answerElements[i].classList.add('late-correct');
-                        const finalScreenTimeout = setTimeout(() => {
-                            navigateToFinalScreen();
-                        }, 2000);
-                        return () => clearTimeout(finalScreenTimeout);
-                    }
-                }
+                findAndShowTheCorrectAnswer();
             }, timerDuration * 1000);
             return () => clearTimeout(timer);
         }
-    }, [triviaData, questionIndex])
+    }, [triviaData, questionIndex]);
 
     const handleOnAnswerClick = (target: EventTarget, answer: string) => {
         const correctAnswer = triviaData[questionIndex].correct_answer;
@@ -90,16 +92,14 @@ const GameProcessPage = () => {
                     clickedElem.classList.remove('correct');
                     setQuestionIndex(questionIndex + 1);
                 } else {
-                    navigateToFinalScreen();
+                    navigateToFinalScreen(true);
                 }
             } else {
-                navigateToFinalScreen();
+                findAndShowTheCorrectAnswer();
             }
         }, 1700);
         return () => clearTimeout(clickTimer);
     }
-
-    console.log('triviaData', triviaData);
 
     return (
         <>
